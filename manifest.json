@@ -1,0 +1,33 @@
+{
+  "name": "Webmirror",
+  "version": "1.0",
+  "description": "Creates a duplicate of a window or tab on your computer inside a different browser.",
+  "background": {
+    "persistent": true,
+    "scripts": ["background.js"]
+  },
+  "oauth2": {
+    "client_id": "536098998739-dn8iv8i1gk4pre2phi8umoutnareqac3.apps.googleusercontent.com",
+    "client_secret": "f4vl7cFJRglIj5G9OFDVu4j9",
+    "scopes": [
+      "https://www.googleapis.com/plus/v1/people/me"
+    ]
+  },
+  "content_scripts": [{
+    "matches": ["https://www.google.com/robots.txt*"],
+    "js": ["oauth2/oauth2_inject.js"],
+    "run_at": "document_start"
+  }],
+  "browser_action": {
+    "default_icon": "camera.png",
+    "default_title": "Cast this tab.",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "desktopCapture",
+    "identity",
+    "tabs",
+    "https://accounts.google.com/o/oauth2/token"
+  ],
+  "manifest_version": 2
+}
