@@ -138,29 +138,7 @@ app.service("VideoService", function ($rootScope) {
 app.service("ChromeService", function () {
   var _identity = "sandile.keswa";
   this.identity = function (callback) {
-    if (_identity) callback(null, _identity);
-    else {
-      chrome.identity.getAuthToken({
-        interactive: false
-      }, function (token) {
-        console.log("token " + token);
-        // $.ajax({
-        //   url: "https://www.googleapis.com/plus/v1/people/me",
-        //   type: "GET",
-        //   beforeSend: function (xhr) {
-        //     xhr.setRequestHeader('Content-Type', 'application/json');
-        //     xhr.setRequestHeader('Authorization', 'OAuth ' + token);
-        //   },
-        //   success: function (profile) {
-        //     _identity = profile.displayName;
-        //     callback(null, _identity);
-        //   },
-        //   error: function (problem) {
-        //     callback(problem);
-        //   }
-        // });
-      });
-    }
+    return chrome.extension.getBackgroundPage().me;
   };
 });
 
