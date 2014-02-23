@@ -1,0 +1,22 @@
+{
+    "name": "letmegetthatforyou-server",
+    "version": "0.0.1",
+    "main": "./client.js",
+    "dependencies": {
+		"express": "*",
+		"querystring": "*",
+		"request": "*",
+		"mongodb": "*",
+		"MD5": "*",
+		"consolidate": "*",
+		"mustache": "*",
+		"sendgrid": "*"
+    },  
+	"devDependencies": {
+		"grunt-contrib-watch": "latest",
+		"grunt-contrib-jshint": "latest",
+		"grunt-nodemon": "0.2.0",
+		"grunt-concurrent": "latest",
+		"grunt-mocha-test": "latest"
+	}
+}

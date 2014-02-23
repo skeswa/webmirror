@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>WebMirror Streaming</title>
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+	<link href="/css/client.css" rel="stylesheet">
+</head>
+<body>
+	<!-- Modal -->
+	<div class="modal fade" id="setup-modal" tabindex="-1" role="dialog" aria-labelledby="setup-modal-label" aria-hidden="true">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="setup-modal-label">Enter a Device Name</h4>
+				<div class="separator"></div>
+			</div>
+			<div class="modal-body">
+				Check that every required field in the form is filled out. After you have provided the missing information, submit the form again.
+				<input type="text" class="form-control" id="setup-modal-name" placeholder="Device Name">
+			</div>
+			<div class="modal-footer-custom">
+				<div class="separator"></div>
+				<button type="button" class="btn">Continue</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Video area -->
+	<video id="video-container" autoplay></video>
+  
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="http://cdn.peerjs.com/0.3.7/peer.min.js"></script>
+
+	<script type="text/javascript" src="/js/client.js"></script>
+</body>
+</html>
