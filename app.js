@@ -15,7 +15,7 @@ app.config(function ($routeProvider) {
   }).when("/devices", {
     templateUrl: "templates/devices.html",
     controller: "DeviceSelectCtrl"
-  }).when("/nowcasting", {
+  }).when("/nowcasting/:deviceId/:peerId", {
     templateUrl: "templates/casting.html",
     controller: "NowCastingCtrl"
   }).otherwise({
@@ -34,23 +34,17 @@ app.run(function ($rootScope) {
 
 app.service("BackendService", function ($http, ChromeService) {
   this.getAllDevices = function (callback) {
-    ChromeService.identity(function (err, identity) {
-      if (err) {
-        callback(err);
-        return;
-      } else {
-        $http({
-          method: "GET",
-          url: "http://pooter.sandile.me:3546/machines",
-          params: {
-            userId: identity
-          }
-        }).success(function (data, status, headers, config) {
-          callback(null, data);
-        }).error(function (data, status, headers, config) {
-          callback(err);
-        });
+    var identity = ChromeService.identity();
+    $http({
+      method: "GET",
+      url: "http://pooter.sandile.me:3546/machines",
+      params: {
+        userId: identity
       }
+    }).success(function (data, status, headers, config) {
+      callback(null, data);
+    }).error(function (data, status, headers, config) {
+      callback(data);
     });
   };
 
@@ -136,9 +130,8 @@ app.service("VideoService", function ($rootScope) {
 });
 
 app.service("ChromeService", function () {
-  var _identity = "sandile.keswa";
   this.identity = function (callback) {
-    return chrome.extension.getBackgroundPage().me;
+    return chrome.extension.getBackgroundPage().me.split("@")[0];
   };
 });
 
@@ -159,15 +152,33 @@ app.controller("HomeCtrl", function ($scope, $location, VideoService) {
 
 });
 
-app.controller("DeviceSelectCtrl", function ($scope, BackendService) {
+app.controller("DeviceSelectCtrl", function ($scope, $location, BackendService) {
   BackendService.getAllDevices(function (err, devices) {
     $("#view section#devices #loader").hide();
-    $scope.devices = devices;
+    if (!devices || devices.length < 1) {
+      $("#view section#devices #empty-prompt").show();
+    } else {
+      $scope.devices = devices;
+    }
   });
+
+  $scope.castToDevice = function (device) {
+    $location.path("/nowcasting/" + device.machineId + "/" + device.peerId);
+  };
 });
 
-app.controller("NowCastingCtrl", function ($scope) {
-
+app.controller("NowCastingCtrl", function ($scope, $routeParams, VideoService, WebRTCService) {
+  $scope.deviceId = $routeParams.deviceId;
+  // Set the preview
+  $("section#casting #preview").prop("src", URL.createObjectURL(VideoService.feed()));
+  // Call the device
+  WebRTCService.id(function (err, peerId) {
+    if (err) {
+      console.log(err);
+    } else {
+      WebRTCService.cast($routeParams.peerId, VideoService.feed());
+    }
+  });
 });
 
 app.controller("MainCtrl", function ($scope, $location) {
