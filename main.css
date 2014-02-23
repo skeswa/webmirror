@@ -78,3 +78,7 @@ div.separator {
 	margin-left: -12px;
 	margin-top: 18px;
 }
+#view section#devices #empty-prompt {
+	opacity: 0;
+	transition: opacity 0.25s ease;
+}

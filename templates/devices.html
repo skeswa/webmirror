@@ -1,3 +1,7 @@
 <section id="devices">
 	<img id="loader" src="img/loader.gif" />
+	<span id="empty-prompt">There were no devices to cast to.</span>
+	<div id="device-list">
+		<device ng-repeat="device in devices" ng-click="castToDevice(device)">{{device.machineId}}</device>
+	</div>
 </section>

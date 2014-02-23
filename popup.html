@@ -9,7 +9,7 @@
   <body data-ng-controller="MainCtrl">
     <div id="header">
       <h3 class="text-muted">Web Mirror</h3>
-      <button id="back-button" type="button" class="btn btn-default" style="{{currLoc === 'home' ? 'display: none;' : ''}}"><img src="img/back.png"/></button>
+      <button id="back-button" type="button" class="btn btn-default" ng-click="returnHome()" style="{{currLoc === 'home' ? 'display: none;' : ''}}"><img src="img/back.png"/></button>
       <div class="separator"></div>
     </div>
     <div id="view" data-ng-view></div>
@@ -18,10 +18,6 @@
     <script src="angular.min.js"></script>
     <script src="angular-route.min.js"></script>
     <script src="peer.min.js"></script>
-    <!--<script src="oauth2/oauth2.js"></script>-->
-
     <script src="app.js"></script>
-    <!--<script src="popup.js"></script>-->
-    <!--<script src="comm.js"></script>-->`
   </body>
 </html>

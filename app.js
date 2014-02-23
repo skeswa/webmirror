@@ -181,24 +181,19 @@ app.controller("HomeCtrl", function ($scope, $location, VideoService) {
 
 });
 
-app.controller("DeviceSelectCtrl", function ($scope) {
-
+app.controller("DeviceSelectCtrl", function ($scope, BackendService) {
+  BackendService.getAllDevices(function (err, devices) {
+    $("#view section#devices #loader").hide();
+    $scope.devices = devices;
+  });
 });
 
 app.controller("NowCastingCtrl", function ($scope) {
 
 });
 
-app.controller("MainCtrl", function ($scope, ChromeService) {
-  $scope.fetchIdentity = function () {
-    ChromeService.identity(function (err, userId) {
-      if (err) {
-        console.log("problem:");
-        console.log(err);
-      } else {
-        console.log("success:");
-        console.log(userId);
-      }
-    });
+app.controller("MainCtrl", function ($scope, $location) {
+  $scope.returnHome = function () {
+    $location.path("/home");
   };
 });
